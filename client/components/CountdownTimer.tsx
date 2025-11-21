@@ -59,10 +59,10 @@ const CountdownTimer = () => {
           const remaining = Math.max(0, endTime - now);
           const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
           const hours = Math.floor(
-            (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
           );
           const minutes = Math.floor(
-            (remaining % (1000 * 60 * 60)) / (1000 * 60)
+            (remaining % (1000 * 60 * 60)) / (1000 * 60),
           );
           const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
