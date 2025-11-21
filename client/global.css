@@ -97,6 +97,10 @@
     @apply border-border;
   }
 
+  html {
+    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
