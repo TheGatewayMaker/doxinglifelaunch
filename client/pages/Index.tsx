@@ -13,14 +13,14 @@ export default function Index() {
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
         {/* Header section */}
-        <div className="text-center mb-16 space-y-6 max-w-2xl">
+        <div className="text-center mb-16 space-y-8 max-w-4xl">
           {/* Main heading */}
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-zinc-100 animate-flicker">
+          <div className="space-y-6">
+            <h1 className="text-7xl md:text-8xl font-black tracking-tighter text-zinc-100 animate-flicker leading-tight">
               Your Information
             </h1>
-            <div className="h-1 w-32 bg-gradient-to-r from-red-600 via-red-500 to-red-950 mx-auto" />
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-red-500">
+            <div className="h-2 w-40 bg-gradient-to-r from-red-600 via-red-600 to-red-700 mx-auto" />
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-red-600 leading-tight">
               Will Be Public
             </h2>
           </div>
