@@ -28,8 +28,6 @@ const CountdownTimer = () => {
 
         if (!isMounted || !endTime) return;
 
-        if (!isMounted || !endTime) return;
-
         const updateTimer = () => {
           const now = Date.now();
           const remaining = Math.max(0, endTime - now);
