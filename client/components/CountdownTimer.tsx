@@ -117,7 +117,7 @@ const CountdownTimer = () => {
             </div>
           </div>
         </div>
-        <span className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">
+        <span className="text-lg uppercase tracking-widest text-zinc-500 font-black">
           {label}
         </span>
       </div>
