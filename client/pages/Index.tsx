@@ -1,61 +1,62 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import CountdownTimer from "@/components/CountdownTimer";
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
-  }, []);
-
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
+    <div className="min-h-screen w-full bg-zinc-950 text-zinc-100 overflow-hidden">
+      {/* Animated background gradient */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-900/10 rounded-full filter blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-950/10 rounded-full filter blur-3xl animate-pulse" />
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
+        {/* Header section */}
+        <div className="text-center mb-16 space-y-6 max-w-2xl">
+          {/* Main heading */}
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-zinc-100 animate-flicker">
+              Your Information
+            </h1>
+            <div className="h-1 w-32 bg-gradient-to-r from-red-600 via-red-500 to-red-950 mx-auto" />
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-red-500">
+              Will Be Public
+            </h2>
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed font-light">
+            In the following time, your personal data will be exposed and shared with everyone. Secure your information before it's too late.
+          </p>
+        </div>
+
+        {/* Timer section */}
+        <div className="mb-20 w-full">
+          <div className="flex justify-center">
+            <CountdownTimer />
+          </div>
+        </div>
+
+        {/* Bottom text section */}
+        <div className="text-center space-y-4 max-w-xl text-sm md:text-base text-zinc-500">
+          <p>
+            This countdown is synchronized across all users. Once complete, there is no turning back.
+          </p>
+          <p className="text-xs text-zinc-600 italic">
+            The clock is ticking. Every second counts.
+          </p>
+        </div>
+
+        {/* Floating elements for atmosphere */}
+        <div className="absolute bottom-10 left-10 w-2 h-2 bg-red-600/30 rounded-full animate-pulse" />
+        <div className="absolute top-20 right-10 w-3 h-3 bg-red-600/20 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
+        <div className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-red-500/40 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
+
+      {/* Scanning line effect */}
+      <div className="fixed inset-0 pointer-events-none z-20 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent animate-pulse" />
       </div>
     </div>
   );
