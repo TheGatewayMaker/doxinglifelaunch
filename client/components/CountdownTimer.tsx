@@ -18,6 +18,19 @@ const CountdownTimer = () => {
   const [endTime, setEndTime] = useState<number | null>(null);
 
   useEffect(() => {
+    // Check if end time is already stored in localStorage
+    const storedEndTime = localStorage.getItem("countdownEndTime");
+
+    if (storedEndTime) {
+      const parsedEndTime = parseInt(storedEndTime, 10);
+      // Check if the stored end time is still in the future
+      if (parsedEndTime > Date.now()) {
+        setEndTime(parsedEndTime);
+        setIsLoading(false);
+        return;
+      }
+    }
+
     // Fetch server time to sync the timer and calculate end time once
     const fetchServerTime = async () => {
       try {
@@ -25,6 +38,7 @@ const CountdownTimer = () => {
         const data = (await response.json()) as { timestamp: number };
         const calculatedEndTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
         setEndTime(calculatedEndTime);
+        localStorage.setItem("countdownEndTime", calculatedEndTime.toString());
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching server time:", error);
