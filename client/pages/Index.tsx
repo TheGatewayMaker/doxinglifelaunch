@@ -39,13 +39,8 @@ export default function Index() {
         </div>
 
         {/* Bottom text section */}
-        <div className="text-center space-y-4 max-w-xl text-sm md:text-base text-zinc-500">
-          <p>
-            This countdown is synchronized across all users. Once complete, there is no turning back.
-          </p>
-          <p className="text-xs text-zinc-600 italic">
-            The clock is ticking. Every second counts.
-          </p>
+        <div className="text-center space-y-2 max-w-xl text-xs md:text-sm text-zinc-600 italic">
+          <p>The clock is ticking. Every second counts.</p>
         </div>
 
         {/* Floating elements for atmosphere */}
