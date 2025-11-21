@@ -23,11 +23,14 @@ const CountdownTimer = () => {
 
     if (storedEndTime) {
       const parsedEndTime = parseInt(storedEndTime, 10);
-      // Check if the stored end time is still in the future
-      if (parsedEndTime > Date.now()) {
+      // Check if the parsed value is valid and is still in the future
+      if (!isNaN(parsedEndTime) && parsedEndTime > Date.now()) {
         setEndTime(parsedEndTime);
         setIsLoading(false);
         return;
+      } else if (!isNaN(parsedEndTime) && parsedEndTime <= Date.now()) {
+        // Stored timer has expired, clear it
+        localStorage.removeItem("countdownEndTime");
       }
     }
 
