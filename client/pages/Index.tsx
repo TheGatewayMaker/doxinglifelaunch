@@ -25,10 +25,6 @@ export default function Index() {
             </h2>
           </div>
 
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed font-light">
-            In the following time, your personal data will be exposed and shared with everyone. Secure your information before it's too late.
-          </p>
         </div>
 
         {/* Timer section */}
