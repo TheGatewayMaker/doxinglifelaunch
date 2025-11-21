@@ -9,7 +9,7 @@ interface TimeRemaining {
 
 const CountdownTimer = () => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
-    days: 5,
+    days: 7,
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -24,30 +24,31 @@ const CountdownTimer = () => {
       try {
         let endTime: number | null = null;
 
-        // First, try to fetch fresh server time
-        try {
-          const response = await fetch("/api/time");
-          if (response.ok) {
-            const data = (await response.json()) as { timestamp: number };
-            if (data.timestamp && typeof data.timestamp === "number") {
-              endTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
-              localStorage.setItem("countdownEndTime", endTime.toString());
-            }
+        // First, check if there's an existing countdown in localStorage
+        const stored = localStorage.getItem("countdownEndTime");
+        if (stored) {
+          const parsed = parseInt(stored, 10);
+          // Use stored value if it's valid and still in the future
+          if (!isNaN(parsed) && parsed > Date.now()) {
+            endTime = parsed;
           }
-        } catch (fetchError) {
-          console.error("Error fetching server time:", fetchError);
-          // Fallback: check localStorage
-          const stored = localStorage.getItem("countdownEndTime");
-          if (stored) {
-            const parsed = parseInt(stored, 10);
-            // Only use if it's a valid number and more than 1 hour in the future
-            if (!isNaN(parsed) && parsed > Date.now() + 3600000) {
-              endTime = parsed;
+        }
+
+        // Only fetch server time and create new countdown if no valid stored time
+        if (!endTime) {
+          try {
+            const response = await fetch("/api/time");
+            if (response.ok) {
+              const data = (await response.json()) as { timestamp: number };
+              if (data.timestamp && typeof data.timestamp === "number") {
+                endTime = data.timestamp + 7 * 24 * 60 * 60 * 1000;
+                localStorage.setItem("countdownEndTime", endTime.toString());
+              }
             }
-          }
-          // If no valid stored time, use client time as last resort
-          if (!endTime) {
-            endTime = Date.now() + 5 * 24 * 60 * 60 * 1000;
+          } catch (fetchError) {
+            console.error("Error fetching server time:", fetchError);
+            // Fallback: use client time as last resort
+            endTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
             localStorage.setItem("countdownEndTime", endTime.toString());
           }
         }
@@ -110,8 +111,8 @@ const CountdownTimer = () => {
           <div className="absolute inset-0 bg-red-600/20 blur-2xl rounded-lg animate-pulse" />
 
           {/* Main timer box */}
-          <div className="relative bg-zinc-950 border border-red-900/50 rounded-lg px-6 py-8 min-w-20 backdrop-blur-sm hover:border-red-700/70 transition-colors duration-300">
-            <div className="text-5xl font-black text-red-500 tracking-tighter font-mono">
+          <div className="relative bg-black border border-red-950/80 rounded-lg px-8 py-10 min-w-24 backdrop-blur-sm hover:border-red-600/80 transition-colors duration-300">
+            <div className="text-7xl font-black text-red-600 tracking-tighter font-mono">
               {String(displayValue).padStart(2, "0")}
             </div>
           </div>
@@ -128,21 +129,21 @@ const CountdownTimer = () => {
       <TimerUnit value={timeRemaining.days} label="Days" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.hours} label="Hours" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.minutes} label="Minutes" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
