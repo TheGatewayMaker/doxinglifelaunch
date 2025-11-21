@@ -15,15 +15,16 @@ const CountdownTimer = () => {
     seconds: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [serverTimeOffset, setServerTimeOffset] = useState(0);
+  const [endTime, setEndTime] = useState<number | null>(null);
 
   useEffect(() => {
-    // Fetch server time to sync the timer
+    // Fetch server time to sync the timer and calculate end time once
     const fetchServerTime = async () => {
       try {
         const response = await fetch("/api/time");
         const data = (await response.json()) as { timestamp: number };
-        setServerTimeOffset(data.timestamp - Date.now());
+        const calculatedEndTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
+        setEndTime(calculatedEndTime);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching server time:", error);
@@ -35,15 +36,10 @@ const CountdownTimer = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (endTime === null) return;
 
     const calculateTimeRemaining = () => {
-      // Get current time synchronized with server
-      const now = Date.now() + serverTimeOffset;
-
-      // 5 days from now
-      const endTime = now + 5 * 24 * 60 * 60 * 1000;
-
+      const now = Date.now();
       const remainingMs = endTime - now;
 
       if (remainingMs <= 0) {
@@ -65,7 +61,7 @@ const CountdownTimer = () => {
 
     const interval = setInterval(calculateTimeRemaining, 1000);
     return () => clearInterval(interval);
-  }, [isLoading, serverTimeOffset]);
+  }, [endTime]);
 
   if (isLoading) {
     return (
