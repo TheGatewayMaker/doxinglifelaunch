@@ -18,65 +18,63 @@ const CountdownTimer = () => {
 
   useEffect(() => {
     let isMounted = true;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const initializeTimer = async () => {
       try {
-        // Check localStorage first
-        const stored = localStorage.getItem("countdownEndTime");
         let endTime: number | null = null;
 
-        if (stored) {
-          const parsed = parseInt(stored, 10);
-          if (!isNaN(parsed) && parsed > Date.now()) {
-            endTime = parsed;
-          } else {
-            // Clear invalid or expired data
-            localStorage.removeItem("countdownEndTime");
+        // First, try to fetch fresh server time
+        try {
+          const response = await fetch("/api/time");
+          if (response.ok) {
+            const data = (await response.json()) as { timestamp: number };
+            if (data.timestamp && typeof data.timestamp === "number") {
+              endTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
+              localStorage.setItem("countdownEndTime", endTime.toString());
+            }
+          }
+        } catch (fetchError) {
+          console.error("Error fetching server time:", fetchError);
+          // Fallback: check localStorage
+          const stored = localStorage.getItem("countdownEndTime");
+          if (stored) {
+            const parsed = parseInt(stored, 10);
+            // Only use if it's a valid number and more than 1 hour in the future
+            if (!isNaN(parsed) && parsed > Date.now() + 3600000) {
+              endTime = parsed;
+            }
+          }
+          // If no valid stored time, use client time as last resort
+          if (!endTime) {
+            endTime = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            localStorage.setItem("countdownEndTime", endTime.toString());
           }
         }
 
-        // If no valid stored time, fetch from server
-        if (!endTime) {
-          const response = await fetch("/api/time");
-          const data = (await response.json()) as { timestamp: number };
-          endTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
-          localStorage.setItem("countdownEndTime", endTime.toString());
-        }
+        if (!isMounted || !endTime) return;
 
-        if (isMounted) {
-          // Update immediately
+        const updateTimer = () => {
           const now = Date.now();
           const remaining = Math.max(0, endTime - now);
           const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
           const hours = Math.floor(
-            (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
           );
           const minutes = Math.floor(
-            (remaining % (1000 * 60 * 60)) / (1000 * 60),
+            (remaining % (1000 * 60 * 60)) / (1000 * 60)
           );
           const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
           setTimeRemaining({ days, hours, minutes, seconds });
-          setIsInitialized(true);
+        };
 
-          // Set up interval for continuous updates
-          const interval = setInterval(() => {
-            const now = Date.now();
-            const remaining = Math.max(0, endTime - now);
-            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-              (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-            );
-            const minutes = Math.floor(
-              (remaining % (1000 * 60 * 60)) / (1000 * 60),
-            );
-            const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        // Update immediately on load
+        updateTimer();
+        setIsInitialized(true);
 
-            setTimeRemaining({ days, hours, minutes, seconds });
-          }, 1000);
-
-          return () => clearInterval(interval);
-        }
+        // Set up interval for continuous updates
+        intervalId = setInterval(updateTimer, 1000);
       } catch (error) {
         console.error("Error initializing timer:", error);
         if (isMounted) {
@@ -89,6 +87,9 @@ const CountdownTimer = () => {
 
     return () => {
       isMounted = false;
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
     };
   }, []);
 
