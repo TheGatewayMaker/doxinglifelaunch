@@ -49,9 +49,11 @@ const CountdownTimer = () => {
 
       const days = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
-        (remainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        (remainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
       );
-      const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+      const minutes = Math.floor(
+        (remainingMs % (1000 * 60 * 60)) / (1000 * 60),
+      );
       const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
 
       setTimeRemaining({ days, hours, minutes, seconds });
@@ -71,13 +73,7 @@ const CountdownTimer = () => {
     );
   }
 
-  const TimerUnit = ({
-    value,
-    label,
-  }: {
-    value: number;
-    label: string;
-  }) => (
+  const TimerUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center gap-2">
       <div className="relative">
         {/* Glowing background effect */}

@@ -24,7 +24,6 @@ export default function Index() {
               Will Be Public
             </h2>
           </div>
-
         </div>
 
         {/* Timer section */}
@@ -41,8 +40,14 @@ export default function Index() {
 
         {/* Floating elements for atmosphere */}
         <div className="absolute bottom-10 left-10 w-2 h-2 bg-red-600/30 rounded-full animate-pulse" />
-        <div className="absolute top-20 right-10 w-3 h-3 bg-red-600/20 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
-        <div className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-red-500/40 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
+        <div
+          className="absolute top-20 right-10 w-3 h-3 bg-red-600/20 rounded-full animate-pulse"
+          style={{ animationDelay: "0.5s" }}
+        />
+        <div
+          className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-red-500/40 rounded-full animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
       </div>
 
       {/* Scanning line effect */}

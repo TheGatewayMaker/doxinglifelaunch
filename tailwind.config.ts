@@ -80,7 +80,7 @@ export default {
             height: "0",
           },
         },
-        "glitch": {
+        glitch: {
           "0%": { transform: "translate(0)" },
           "20%": { transform: "translate(-2px, 2px)" },
           "40%": { transform: "translate(-2px, -2px)" },
@@ -88,7 +88,7 @@ export default {
           "80%": { transform: "translate(2px, -2px)" },
           "100%": { transform: "translate(0)" },
         },
-        "flicker": {
+        flicker: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.7" },
         },
@@ -100,8 +100,8 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "glitch": "glitch 0.3s infinite",
-        "flicker": "flicker 3s infinite",
+        glitch: "glitch 0.3s infinite",
+        flicker: "flicker 3s infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
       },
     },
