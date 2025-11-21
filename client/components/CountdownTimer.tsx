@@ -22,36 +22,11 @@ const CountdownTimer = () => {
 
     const initializeTimer = async () => {
       try {
-        let endTime: number | null = null;
+        // Fixed launch date: November 29, 2025 at 5:00 AM UTC
+        const launchDate = new Date("2025-11-29T05:00:00Z");
+        const endTime = launchDate.getTime();
 
-        // First, check if there's an existing countdown in localStorage
-        const stored = localStorage.getItem("countdownEndTime");
-        if (stored) {
-          const parsed = parseInt(stored, 10);
-          // Use stored value if it's valid and still in the future
-          if (!isNaN(parsed) && parsed > Date.now()) {
-            endTime = parsed;
-          }
-        }
-
-        // Only fetch server time and create new countdown if no valid stored time
-        if (!endTime) {
-          try {
-            const response = await fetch("/api/time");
-            if (response.ok) {
-              const data = (await response.json()) as { timestamp: number };
-              if (data.timestamp && typeof data.timestamp === "number") {
-                endTime = data.timestamp + 7 * 24 * 60 * 60 * 1000;
-                localStorage.setItem("countdownEndTime", endTime.toString());
-              }
-            }
-          } catch (fetchError) {
-            console.error("Error fetching server time:", fetchError);
-            // Fallback: use client time as last resort
-            endTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
-            localStorage.setItem("countdownEndTime", endTime.toString());
-          }
-        }
+        if (!isMounted || !endTime) return;
 
         if (!isMounted || !endTime) return;
 
