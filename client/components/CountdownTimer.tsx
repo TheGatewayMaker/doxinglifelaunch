@@ -102,21 +102,21 @@ const CountdownTimer = () => {
       <TimerUnit value={timeRemaining.days} label="Days" />
 
       {/* Separator */}
-      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.hours} label="Hours" />
 
       {/* Separator */}
-      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.minutes} label="Minutes" />
 
       {/* Separator */}
-      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
+      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
