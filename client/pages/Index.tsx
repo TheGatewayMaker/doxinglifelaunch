@@ -17,9 +17,16 @@ export default function Index() {
           {/* Main heading */}
           <div className="space-y-4">
             <div className="space-y-4">
-              <h1 className="text-7xl md:text-8xl font-black tracking-tighter leading-tight text-zinc-100 animate-flicker" style={{ fontWeight: '900', letterSpacing: '-0.02em' }}>Your Information</h1>
+              <h1
+                className="text-7xl md:text-8xl font-black tracking-tighter leading-tight text-zinc-100 animate-flicker"
+                style={{ fontWeight: "900", letterSpacing: "-0.02em" }}
+              >
+                Your Information
+              </h1>
               <div className="h-2 w-40 bg-gradient-to-r from-red-600 via-red-600 to-red-700 mx-auto" />
-              <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight">Will Be Public in</h2>
+              <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight">
+                Will Be Public in
+              </h2>
             </div>
           </div>
         </div>
