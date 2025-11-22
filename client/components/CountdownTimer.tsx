@@ -84,13 +84,13 @@ const CountdownTimer = () => {
           <div className="absolute inset-0 bg-red-600/20 blur-2xl rounded-lg animate-pulse" />
 
           {/* Main timer box */}
-          <div className="relative bg-black border border-red-950/80 rounded-lg px-8 py-10 min-w-24 backdrop-blur-sm hover:border-red-600/80 transition-colors duration-300">
-            <div className="text-7xl font-black text-red-600 tracking-tighter font-mono">
+          <div className="relative bg-black border border-red-950/80 rounded-lg px-3 sm:px-6 md:px-8 py-4 sm:py-6 md:py-10 min-w-16 sm:min-w-20 md:min-w-24 backdrop-blur-sm hover:border-red-600/80 transition-colors duration-300">
+            <div className="text-3xl sm:text-5xl md:text-7xl font-black text-red-600 tracking-tighter font-mono">
               {String(displayValue).padStart(2, "0")}
             </div>
           </div>
         </div>
-        <span className="text-lg uppercase tracking-widest text-zinc-500 font-black">
+        <span className="text-xs sm:text-sm md:text-lg uppercase tracking-widest text-zinc-500 font-black">
           {label}
         </span>
       </div>
