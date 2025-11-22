@@ -19,11 +19,18 @@ export default function Index() {
             <div className="space-y-4">
               <h1
                 className="text-6xl md:text-7xl font-black tracking-tighter leading-tight text-zinc-100 animate-flicker"
-                style={{ fontWeight: "900", letterSpacing: "-0.02em", fontFamily: "Nosifer" }}
+                style={{
+                  fontWeight: "900",
+                  letterSpacing: "-0.02em",
+                  fontFamily: "Nosifer",
+                }}
               >
                 Your Information
               </h1>
-              <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight" style={{ fontWeight: "900", fontFamily: "Nosifer" }}>
+              <h2
+                className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight"
+                style={{ fontWeight: "900", fontFamily: "Nosifer" }}
+              >
                 Will Be Public in
               </h2>
             </div>
