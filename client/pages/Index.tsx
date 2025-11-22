@@ -19,7 +19,7 @@ export default function Index() {
             <div className="space-y-4">
               <h1
                 className="text-7xl md:text-8xl font-black tracking-tighter leading-tight text-zinc-100 animate-flicker"
-                style={{ fontWeight: "900", letterSpacing: "-0.02em" }}
+                style={{ fontWeight: "900", letterSpacing: "-0.02em", fontFamily: "Nosifer" }}
               >
                 Your Information
               </h1>
