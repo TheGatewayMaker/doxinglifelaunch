@@ -98,7 +98,7 @@ const CountdownTimer = () => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-3 md:gap-6 flex-wrap">
+    <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3 lg:gap-6 flex-wrap">
       <TimerUnit value={timeRemaining.days} label="Days" />
 
       {/* Separator */}
