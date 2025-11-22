@@ -9,7 +9,7 @@ interface TimeRemaining {
 
 const CountdownTimer = () => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
-    days: 5,
+    days: 7,
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -22,35 +22,9 @@ const CountdownTimer = () => {
 
     const initializeTimer = async () => {
       try {
-        let endTime: number | null = null;
-
-        // First, try to fetch fresh server time
-        try {
-          const response = await fetch("/api/time");
-          if (response.ok) {
-            const data = (await response.json()) as { timestamp: number };
-            if (data.timestamp && typeof data.timestamp === "number") {
-              endTime = data.timestamp + 5 * 24 * 60 * 60 * 1000;
-              localStorage.setItem("countdownEndTime", endTime.toString());
-            }
-          }
-        } catch (fetchError) {
-          console.error("Error fetching server time:", fetchError);
-          // Fallback: check localStorage
-          const stored = localStorage.getItem("countdownEndTime");
-          if (stored) {
-            const parsed = parseInt(stored, 10);
-            // Only use if it's a valid number and more than 1 hour in the future
-            if (!isNaN(parsed) && parsed > Date.now() + 3600000) {
-              endTime = parsed;
-            }
-          }
-          // If no valid stored time, use client time as last resort
-          if (!endTime) {
-            endTime = Date.now() + 5 * 24 * 60 * 60 * 1000;
-            localStorage.setItem("countdownEndTime", endTime.toString());
-          }
-        }
+        // Fixed launch date: November 29, 2025 at 5:00 AM UTC
+        const launchDate = new Date("2025-11-29T05:00:00Z");
+        const endTime = launchDate.getTime();
 
         if (!isMounted || !endTime) return;
 
@@ -110,13 +84,13 @@ const CountdownTimer = () => {
           <div className="absolute inset-0 bg-red-600/20 blur-2xl rounded-lg animate-pulse" />
 
           {/* Main timer box */}
-          <div className="relative bg-zinc-950 border border-red-900/50 rounded-lg px-6 py-8 min-w-20 backdrop-blur-sm hover:border-red-700/70 transition-colors duration-300">
-            <div className="text-5xl font-black text-red-500 tracking-tighter font-mono">
+          <div className="relative bg-black border border-red-950/80 rounded-lg px-8 py-10 min-w-24 backdrop-blur-sm hover:border-red-600/80 transition-colors duration-300">
+            <div className="text-7xl font-black text-red-600 tracking-tighter font-mono">
               {String(displayValue).padStart(2, "0")}
             </div>
           </div>
         </div>
-        <span className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">
+        <span className="text-lg uppercase tracking-widest text-zinc-500 font-black">
           {label}
         </span>
       </div>
@@ -128,21 +102,21 @@ const CountdownTimer = () => {
       <TimerUnit value={timeRemaining.days} label="Days" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.hours} label="Hours" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
       <TimerUnit value={timeRemaining.minutes} label="Minutes" />
 
       {/* Separator */}
-      <div className="text-2xl md:text-4xl font-black text-red-600/60 animate-pulse">
+      <div className="text-4xl md:text-5xl font-black text-red-600 animate-pulse">
         :
       </div>
 
