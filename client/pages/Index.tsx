@@ -23,8 +23,7 @@ export default function Index() {
               >
                 Your Information
               </h1>
-              <div className="h-2 w-40 bg-gradient-to-r from-red-600 via-red-600 to-red-700 mx-auto" />
-              <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight" style={{ fontWeight: "900" }}>
+              <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-red-600 leading-tight" style={{ fontWeight: "900", fontFamily: "Nosifer" }}>
                 Will Be Public in
               </h2>
             </div>
